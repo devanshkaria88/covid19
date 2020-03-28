@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'constants.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../constants.dart';
 
-TextStyle kDrawerTextStyle = TextStyle(
-  color: Color(0xff222222),
-  fontSize: 30.0,
-);
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -25,13 +23,18 @@ class AppDrawer extends StatelessWidget {
               child: Center(
                 child: Text(
                   'COVID-19 Tracker',
-                  style: TextStyle(color: Colors.white, fontSize: 45.0),
+                  style: GoogleFonts.courgette(
+                    color: Colors.white,
+                    fontSize: 40.0,
+                  ),
                 ),
               ),
             ),
-            DrawerCard(icon: Icons.account_balance, description: 'Home'),
-            DrawerCard(icon: Icons.attach_money, description: 'Donations'),
-            DrawerCard(icon: Icons.description, description: 'World Data'),
+            DrawerCard(
+                icon: FontAwesomeIcons.globeAmericas,
+                description: 'Global Data'),
+            DrawerCard(icon: FontAwesomeIcons.search, description: 'Search by Country'),
+            DrawerCard(icon: FontAwesomeIcons.comment, description: 'Suggestions'),
           ],
         ),
       ),
@@ -44,7 +47,11 @@ class DrawerCard extends StatelessWidget {
   String description;
 
   DrawerCard({@required this.icon, @required this.description});
-
+  TextStyle kDrawerTextStyle = TextStyle(
+    color: Color(0xff222222),
+    fontSize: 25.0,
+    fontWeight: FontWeight.w500,
+  );
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -63,18 +70,16 @@ class DrawerCard extends StatelessWidget {
           padding: EdgeInsets.only(left: 15.0),
           child: Row(
             children: <Widget>[
-              Icon(
-                icon,
-                size: 35,
-              ),
+              FaIcon(icon),
               SizedBox(
                 width: width * 0.1,
               ),
               Text(
                 description,
                 style: kDrawerTextStyle,
+
               )
-            ],
+              ],
           ),
         ),
       ),
