@@ -35,9 +35,10 @@ class _DataCardState extends State<DataCard> {
         ),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(widget.Cardtitle, style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w500, ),),
+              SizedBox(height: 20.0,),
               Text(widget.Number, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 35.0,),),
             ],
           ),
