@@ -7,7 +7,6 @@ class CasesModel {
     NetworkHelper networkHelper = NetworkHelper(url);
     var data = await networkHelper.getData();
     country = data['parameters']['country'];
-    print(country);
     return data;
   }
 }
