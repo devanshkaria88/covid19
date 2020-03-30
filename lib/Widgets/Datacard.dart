@@ -17,7 +17,6 @@ class _DataCardState extends State<DataCard> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Expanded(
       child: Container(
         padding: EdgeInsets.all(5.0),
@@ -35,10 +34,9 @@ class _DataCardState extends State<DataCard> {
         ),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(widget.Cardtitle, style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w500, ),),
-              SizedBox(height: 20.0,),
               Text(widget.Number, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 35.0,),),
             ],
           ),

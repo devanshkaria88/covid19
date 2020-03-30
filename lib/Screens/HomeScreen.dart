@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:covid19/Widgets/Drawer.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:covid19/Widgets/Datacard.dart';
-import 'package:covid19/services/Networking.dart';
 import 'package:covid19/services/Cases.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -41,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
         CountryName = '';
         Criticalcases = 0;
         RecoveredCases = 0;
-        newCases = '+0';
         ActiveCases = 0;
         Deaths = 0;
         Message = 'Unable to retrieve data';
@@ -53,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
       RecoveredCases = casesdata['response'][0]['cases']['recovered'];
       Criticalcases = casesdata['response'][0]['cases']['critical'];
       Deaths = casesdata['response'][0]['deaths']['total'];
-      newCases = casesdata['response'][0]['cases']['new'];
       if (CountryName == 'All') {
         CountryName = 'World Data';
       }
@@ -107,8 +103,6 @@ class _HomeScreenState extends State<HomeScreen> {
         begin: AlignmentDirectional.topCenter,
         end: AlignmentDirectional.bottomCenter);
 
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: AppDrawer(),
       appBar: AppBar(
@@ -139,109 +133,51 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: ListView(
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  color: Colors.white,
-                  child: Column(
+            Container(
+              color: Colors.white,
+              child: Column(
+                children: <Widget>[
+                  Row(
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          CountryNameCard(
-                            country: CountryName,
-                          )
-                        ],
+                      CountryNameCard(
+                        country: CountryName,
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      DataCard(
+                        cardGradient: bluegradient,
+                        cardcolor: Colors.blue[300],
+                        Cardtitle: 'Total Cases',
+                        Number: TotalCases.toString(),
                       ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          DataCard(
-                            cardGradient: bluegradient,
-                            cardcolor: Colors.blue[300],
-                            Cardtitle: 'Total Cases',
-                            Number: TotalCases.toString(),
-                          ),
-                          DataCard(
-                            cardGradient: redgradient,
-                            cardcolor: Colors.red[300],
-                            Cardtitle: 'Deaths',
-                            Number: Deaths.toString(),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 40.0,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          DataCard(
-                            cardcolor: Colors.green[300],
-                            cardGradient: greengradient,
-                            Cardtitle: 'Recovered',
-                            Number: RecoveredCases.toString(),
-                          ),
-                          DataCard(
-                            cardGradient: greygradient,
-                            cardcolor: Colors.grey[300],
-                            Cardtitle: 'Critical',
-                            Number: Criticalcases.toString(),
-                          ),
-                        ],
+                      DataCard(
+                        cardGradient: redgradient,
+                        cardcolor: Colors.red[300],
+                        Cardtitle: 'Deaths',
+                        Number: Deaths.toString(),
                       ),
                     ],
                   ),
-                ),
-                Positioned(
-                  left: width * 0.3,
-                  top: height * 0.378,
-                  child: Container(
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'New Cases',
-                            style: TextStyle(
-                                fontSize: 25.0, fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(height: 10.0,),
-                          Text(
-                            newCases,
-                            style: TextStyle(
-                                fontSize: 30.0, fontWeight: FontWeight.w500),
-                          ),
-                        ],
+                  Row(
+                    children: <Widget>[
+                      DataCard(
+                        cardcolor: Colors.green[300],
+                        cardGradient: greengradient,
+                        Cardtitle: 'Recovered',
+                        Number: RecoveredCases.toString(),
                       ),
-                    ),
-                    height: 150.0,
-                    width: 150.0,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black,
-                            spreadRadius: 0.4,
-                            blurRadius: 20.0)
-                      ],
-                      shape: BoxShape.circle,
-                      gradient: RadialGradient(
-                        center: AlignmentDirectional.center,
-                        radius: 2.5,
-                        colors: [
-                          Colors.red[100],
-                          Colors.red[300],
-                          Colors.red[500],
-                          Colors.red[600],
-                          Colors.red[700],
-                          Colors.red[800],
-                          Colors.red[900],
-                        ],
+                      DataCard(
+                        cardGradient: greygradient,
+                        cardcolor: Colors.grey[300],
+                        Cardtitle: 'Critical',
+                        Number: Criticalcases.toString(),
                       ),
-                    ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -272,7 +208,7 @@ class CountryNameCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(5.0),
         margin: EdgeInsets.all(10.0),
-        height: height * 0.17,
+        height: height * 0.2,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.white, width: 1.0),
           gradient: gradient,

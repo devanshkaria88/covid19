@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'COVID - 19',
       routes: {
         '/home' : (Context) => HomeScreen(),
         '/country' : (Context) => CountryScreen(),
